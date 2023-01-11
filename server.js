@@ -10,6 +10,10 @@ const cors = require('cors');
 const sgMail = require('@sendgrid/mail');
 const fetch = require('node-fetch');
 
+// define seperate routes in seprerate files
+const mongo = require('./routes/mongo');
+//const charity = require('./routes/charity');
+
 // get dotenv variabls
 require('dotenv').config();
 
@@ -29,12 +33,20 @@ const charitiesAPIKey = process.env.CHARITIES_API_KEY;
 // create an instance of express to serve our end point
 const app = express();
 
+// for connection to Mongo DB
+const connectDB = require('./config/db');
+connectDB();
+
 // ensure app can service requests from all sources
 // configure our express instance with some body-parser settings
 // including handling JSON data
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// define routes in seperate file
+app.use('/mongo', mongo);
+//app.use('/charity', charity);
 
 // START OF ENDPOINT DEFINITION
 app.get('/', (req, res) => {
