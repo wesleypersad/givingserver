@@ -5,7 +5,7 @@ const router = express.Router();
 //bring in controllers for CRUD operations
 const { getBlog, setBlog, deleteBlog } = require('../controllers/blogController');
 const { getEvent, setEvent, deleteEvent } = require('../controllers/eventController');
-const { getUser, setUser, deleteUser } = require('../controllers/userController');
+const { getUser, setUser, deleteUser, loginUser } = require('../controllers/userController');
 
 // just for the mongo branch
 router.get('/', (req, res, next) => { 
@@ -25,6 +25,7 @@ router.delete('/event', deleteEvent);
 // for the users
 router.get('/user', getUser);
 router.post('/user', setUser);
+router.post('/user/login', loginUser);
 router.delete('/user', deleteUser);
 
 module.exports = router;
