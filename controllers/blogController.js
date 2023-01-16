@@ -12,18 +12,19 @@ const getBlog = async (req, res) => {
 // setBlog
 // POST request
 const setBlog = async (req, res) => {
-    if (!req.body) {
-        res.status(400).json({message: 'Please add some JSON in body'});
-        return;
+    const {title, body, author} = req.body;
+
+    try {
+        const data = await Blog.create({
+            title: title,
+            body: body,
+            author: author
+        });
+
+        res.status(200).json(data);
+    } catch (error) {
+        res.status(200).json({error: error.message});
     }
-
-    const data = await Blog.create({
-        title: req.body.title,
-        body: req.body.body,
-        author: req.body.author
-    });
-
-    res.status(200).json(data);
 };
 
 // deleteBLog

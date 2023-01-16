@@ -11,18 +11,20 @@ const getEvent = async (req, res) => {
 // setEvent
 // POST request
 const setEvent = async (req, res) => {
-    if (!req.body) {
-        res.status(400).json({message: 'Please add some JSON in body'})
+    const {title, allDay, start, end} = req.body;
+
+    try {
+        const data = await Event.create({
+            title: title,
+            allDay: allDay,
+            start: start,
+            end: end
+        });
+
+        res.status(200).json(data);
+    } catch (error) {
+        res.status(400).json({error: error.message});
     }
-
-    const data = await Event.create({
-        title: req.body.title,
-        allDay: req.body.allDay,
-        start: req.body.start,
-        end: req.body.end
-    });
-
-    res.status(200).json(data);
 };
 
 // deleteEvent

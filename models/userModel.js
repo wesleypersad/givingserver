@@ -1,11 +1,44 @@
+const validator = require('validator');
 const mongoose = require('mongoose');
 
 const userSchema = mongoose.Schema({
-    username: String, 
-    password: String,
-    email: String
+    username: {
+        type: String,
+        required: true,
+        unique: true
+    }, 
+    password: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    }
 }, {
-    timstamps: true
+        timstamps: true
 });
+
+// static signup method
+// encryption to be added later
+userSchema.statics.signup = async function(username, password, email) {
+
+    // validation
+    if (!username || !password || !email) {
+        throw Error('All fields must be filled');
+    }
+    if (!validator.isEmail(email)) {
+        throw Error('Email is not valid');
+    }
+/*     if (!validator.isStrongPassword(password)) {
+        throw Error('Password not strong enough');
+    } */
+
+    const user = await this.create({username, password, email});
+
+    return user;
+}
 
 module.exports = mongoose.model('User', userSchema);

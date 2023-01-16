@@ -25,6 +25,7 @@ router.delete('/event', deleteEvent);
 // for the users
 router.get('/user', getUser);
 router.post('/user', setUser);
+router.post('/user/signup', setUser); // same as above
 router.post('/user/login', loginUser);
 router.delete('/user', deleteUser);
 

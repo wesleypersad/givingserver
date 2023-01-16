@@ -1,9 +1,15 @@
 const mongoose = require('mongoose');
 
 const blogSchema = mongoose.Schema({
-    title: String,
+    title: {
+        type: String,
+        required: true
+    },
     body: String,
-    author: String
+    author: {
+        type: String,
+        required: true
+    }
 }, {
     timstamps: true
 });

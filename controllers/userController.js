@@ -9,21 +9,18 @@ const getUser = async (req, res) => {
     res.status(200).json(data);
 };
 
-// setUser
+// setUser and also used for /user/signup
 // POST request
 const setUser = async (req, res) => {
-    if (!req.body) {
-        res.status(400).json({message: 'Please add some JSON in body'});
-        return;
+    const {username, password, email} = req.body;
+
+    try {
+        const user = await User.signup(username, password, email);
+
+        res.status(200).json(user);
+    } catch (error) {
+        res.status(400).json({error: error.message});
     }
-
-    const data = await User.create({
-        username: req.body.username,
-        password: req.body.password,
-        email: req.body.email
-    });
-
-    res.status(200).json(data);
 };
 
 // loginUser
@@ -35,7 +32,7 @@ const loginUser = async (req, res) => {
     }
 
     // see if the username exists
-    const username = req.body.username;
+    const {username} = req.body;
     const data = await User.find({"username": `${username}`});
 
     if (data == null) {
