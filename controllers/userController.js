@@ -1,4 +1,9 @@
 const User = require('../models/userModel');
+const jwt = require('jsonwebtoken');
+
+const createToken = (_id) => {
+    return jwt.sign({_id}, process.env.SECRET, { expiresIn: '3d'});
+};
 
 // getUser
 // GET request
@@ -17,7 +22,10 @@ const setUser = async (req, res) => {
     try {
         const user = await User.signup(username, password, email);
 
-        res.status(200).json(user);
+        // create a token
+        const token = createToken(user._id);
+
+        res.status(200).json({user, token});
     } catch (error) {
         res.status(400).json({error: error.message});
     }
@@ -26,30 +34,17 @@ const setUser = async (req, res) => {
 // loginUser
 // POST request
 const loginUser = async (req, res) => {
-    if (!req.body) {
-        res.status(400).json({message: 'Please add some JSON in body'});
-        return;
-    }
-
-    // see if the username exists
-    const {username} = req.body;
-    const data = await User.find({"username": `${username}`});
-
-    if (data == null) {
-        return res.status(400).send('Cannot find user');
-    }
+    const {username, password, email} = req.body;
 
     try {
-        //compare passwords
-        if (req.body.password == data[0].password) {
-            //res.send('Success');
-            res.status(200).json(data); 
-        } else {
-            res.status(403).send('Not Allowed');
-        }
-        
-    } catch {
-        res.status(500).send();
+        const user = await User.login(username, password, email);
+
+        // create a token
+        const token = createToken(user._id);
+
+        res.status(200).json({user, token});
+    } catch (error) {
+        res.status(400).json({error: error.message});
     }
 };
 
