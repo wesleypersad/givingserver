@@ -42,13 +42,10 @@ userSchema.statics.signup = async function(username, password, email) {
 };
 
 // static login method
-userSchema.statics.login = async function(username, password, email) {
+userSchema.statics.login = async function(username, password) {
     // validation
-    if (!username || !password || !email) {
+    if (!username || !password) {
         throw Error('All fields must be filled');
-    }
-    if (!validator.isEmail(email)) {
-        throw Error('Email is not valid');
     }
 /*     if (!validator.isStrongPassword(password)) {
         throw Error('Password not strong enough');
