@@ -1,0 +1,22 @@
+const express = require('express');
+
+//bring in the middleware for user authenication
+//const requireAuth = require('../middleware/requireAuth');
+
+// instantiate router
+const router = express.Router();
+
+//bring in controllers for CRUD operations
+const { getUser, setUser, deleteUser, loginUser } = require('../controllers/userController');
+
+// require auth for all routes i.e. valid suer has to be logged in
+//router.use(requireAuth);
+
+// for the users
+router.get('/', getUser);
+router.post('/', setUser);
+router.post('/signup', setUser); // same as above
+router.post('/login', loginUser);
+router.delete('/', deleteUser);
+
+module.exports = router;

@@ -11,7 +11,10 @@ const sgMail = require('@sendgrid/mail');
 const fetch = require('node-fetch');
 
 // define seperate routes in seprerate files
-const mongo = require('./routes/mongo');
+const user = require('./routes/user');
+const blog= require('./routes/blog');
+const event = require('./routes/event');
+//const mongo = require('./routes/mongo');
 //const charity = require('./routes/charity');
 
 // get dotenv variabls
@@ -45,7 +48,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // define routes in seperate file
-app.use('/mongo', mongo);
+app.use('/user', user);
+app.use('/blog', blog);
+app.use('/event', event);
+//app.use('/mongo', mongo);
 //app.use('/charity', charity);
 
 // START OF ENDPOINT DEFINITION
