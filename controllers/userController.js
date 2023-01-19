@@ -51,15 +51,15 @@ const loginUser = async (req, res) => {
 };
 
 // deleteUser
-// DELETE request
+// DELETE request - delete by _id
 const deleteUser = async (req, res) => {
-    if (!req.body.username) {
-        res.status(400).json({message: 'Please add a JSON username in body'});
+    if (!req.body._id) {
+        res.status(400).json({message: 'Please add a JSON _id in body'});
         return;
     }
 
     // get result of attempt to delete the record with that username
-    const result = await User.deleteOne({username: req.body.username});
+    const result = await User.deleteOne({_id: req.body._id});
 
     res.status(200).json(result);
 };

@@ -28,15 +28,15 @@ const setBlog = async (req, res) => {
 };
 
 // deleteBLog
-// DELETE request
+// DELETE request - delete by _id
 const deleteBlog = async (req, res) => {
-    if (!req.body.title) {
-        res.status(400).json({message: 'Please add a JSON title in body'});
+    if (!req.body._id) {
+        res.status(400).json({message: 'Please add a JSON _id in body'});
         return;
     }
 
     // get result of attempt to delete the record with that username
-    const result = await Blog.deleteOne({title: req.body.title});
+    const result = await Blog.deleteOne({_id: req.body._id});
 
     res.status(200).json(result);
 };

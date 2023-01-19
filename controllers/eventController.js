@@ -28,15 +28,15 @@ const setEvent = async (req, res) => {
 };
 
 // deleteEvent
-// DELETE request
+// DELETE request - delete by _id
 const deleteEvent = async (req, res) => {
-    if (!req.body.title) {
-        res.status(400).json({message: 'Please add a JSON event title in body'});
+    if (!req.body._id) {
+        res.status(400).json({message: 'Please add a JSON event _id in body'});
         return;
     }
 
     // get result of attempt to delete the record with that username
-    const result = await Event.deleteOne({title: req.body.title});
+    const result = await Event.deleteOne({_id: req.body._id});
 
     res.status(200).json(result);
 };
