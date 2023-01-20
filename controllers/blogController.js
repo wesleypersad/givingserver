@@ -32,8 +32,9 @@ const setBlog = async (req, res) => {
 const deleteBlog = async (req, res) => {
     if (!req.body._id) {
         res.status(400).json({message: 'Please add a JSON _id in body'});
+        //res.status(400).json(req.body);
         return;
-    }
+    };
 
     // get result of attempt to delete the record with that username
     const result = await Blog.deleteOne({_id: req.body._id});
