@@ -1,3 +1,7 @@
+//
+// This is legacy and is no longer required as routes have  
+// been separated into seperate files
+//
 const express = require('express');
 const { SecondaryAuthTokenContext } = require('twilio/lib/rest/accounts/v1/secondaryAuthToken');
 

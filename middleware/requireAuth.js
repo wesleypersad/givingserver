@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const { UserBindingContext } = require('twilio/lib/rest/chat/v2/service/user/userBinding');
+//const { UserBindingContext } = require('twilio/lib/rest/chat/v2/service/user/userBinding');
 const User = require('../models/userModel');
 
 const requireAuth = async (req, res, next) => {

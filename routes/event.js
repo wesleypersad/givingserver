@@ -1,5 +1,4 @@
 const express = require('express');
-//const { SecondaryAuthTokenContext } = require('twilio/lib/rest/accounts/v1/secondaryAuthToken');
 
 //bring in the middleware for user authenication
 const requireAuth = require('../middleware/requireAuth');

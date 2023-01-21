@@ -1,6 +1,6 @@
 const express = require('express');
 
-//bring in the middleware for user authenication
+//bring in the middleware for user authenication if required
 //const requireAuth = require('../middleware/requireAuth');
 
 // instantiate router
