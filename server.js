@@ -60,15 +60,30 @@ app.get('/', (req, res) => {
 });
 app.get('/charity', async (req, res) => {
     //res.send('Perform the charity fetch here !!!');
-    const response = await fetch('https://api.charitycommission.gov.uk/register/api/charitydetails/214779/0', {
+    try {
+        const response = await fetch('https://api.charitycommission.gov.uk/register/api/charitydetails/214779/0', {
+            method: 'GET',
+            // Request headers
+            headers: {
+                'Cache-Control': 'no-cache',
+                'Ocp-Apim-Subscription-Key': `${charitiesAPIKey}`
+            }
+        });
+        res.json(await response.json());
+    } catch(error) {
+        console.log(error.message);
+        return null;
+    };
+/*     const response = await fetch('https://api.charitycommission.gov.uk/register/api/charitydetails/214779/0', {
         method: 'GET',
         // Request headers
         headers: {
             'Cache-Control': 'no-cache',
             'Ocp-Apim-Subscription-Key': `${charitiesAPIKey}`,
+            'Content-type' : 'application/json'
         }
     });
-    res.json(await response.json());
+    res.json(await response.json()); */
 });
 app.post('/twilio', (req,res) => {
     //NB body data received as a JSON object already not a raw string

@@ -11,14 +11,15 @@ const getEvent = async (req, res) => {
 // setEvent
 // POST request
 const setEvent = async (req, res) => {
-    const {title, allDay, start, end} = req.body;
+    const {title, allDay, start, end, author} = req.body;
 
     try {
         const data = await Event.create({
             title: title,
             allDay: allDay,
             start: start,
-            end: end
+            end: end,
+            author: author
         });
 
         res.status(200).json(data);

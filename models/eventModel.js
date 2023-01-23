@@ -14,6 +14,10 @@ const eventSchema = mongoose.Schema({
     end: {
         type: Date,
         required: true
+    },
+    author: {
+        type: String,
+        required: true
     }
 }, {
     timstamps: true
