@@ -3,7 +3,10 @@ const Event = require('../models/eventModel');
 // getEvent
 // GET request
 const getEvent = async (req, res) => {
-    const data = await Event.find({});
+    // get the username to filter result to users documents
+    const author = req.user.username;
+
+    const data = await Event.find({"author": author});
 
     res.status(200).json(data);
 };
@@ -11,7 +14,8 @@ const getEvent = async (req, res) => {
 // setEvent
 // POST request
 const setEvent = async (req, res) => {
-    const {title, allDay, start, end, author} = req.body;
+    const {title, allDay, start, end} = req.body;
+    const author = req.user.username;
 
     try {
         const data = await Event.create({

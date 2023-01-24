@@ -3,8 +3,11 @@ const Blog = require('../models/blogModel');
 // getBlog
 // GET request
 const getBlog = async (req, res) => {
-    const data = await Blog.find({});
-    //const data = await Data.find({"username": /substring/});
+    // get the username to filter result to users documents
+    const author = req.user.username;
+
+    //const data = await Blog.find({});
+    const data = await Blog.find({"author": author});
 
     res.status(200).json(data);
 };
@@ -12,7 +15,8 @@ const getBlog = async (req, res) => {
 // setBlog
 // POST request
 const setBlog = async (req, res) => {
-    const {title, body, author} = req.body;
+    const {title, body} = req.body;
+    const author = req.user.username;
 
     try {
         const data = await Blog.create({
