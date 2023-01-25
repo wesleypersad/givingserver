@@ -43,8 +43,11 @@ const loginUser = async (req, res) => {
         // create a token
         const token = createToken(user._id);
 
+        // return the role to the front end
+        const role = user.role;
+
         // return username & token
-        res.status(200).json({username, token});
+        res.status(200).json({username, token, role});
     } catch (error) {
         res.status(400).json({error: error.message});
     }
