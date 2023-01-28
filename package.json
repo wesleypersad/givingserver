@@ -24,6 +24,7 @@
     "mongoose": "^6.8.3",
     "node-fetch": "^2.6.6",
     "nodemon": "^2.0.20",
+    "socket.io": "^4.5.4",
     "twilio": "^3.83.3",
     "validator": "^13.7.0"
   }

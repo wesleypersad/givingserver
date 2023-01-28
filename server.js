@@ -15,11 +15,22 @@ const event = require('./routes/event');
 const charity = require('./routes/charity');
 const send = require('./routes/send');
 
-// get dotenv variabls
-require('dotenv').config();
-
 // create an instance of express to serve our end point
 const app = express();
+
+// create a server for socket chat handling
+const http = require('http').createServer(app);
+const socketIO = require('socket.io')(http, {
+    cors: {
+        origin: "*"
+    }
+});
+
+// socket router
+const socketRouter = require('./routes/SocketRouter')(socketIO);    //socket
+
+// get dotenv variabls
+require('dotenv').config();
 
 // initiate connection to Mongo DB
 const connectDB = require('./config/db');
@@ -38,6 +49,7 @@ app.use('/blog', blog);
 app.use('/event', event);
 app.use('/charity', charity);
 app.use('/send', send);
+app.use('/chat', socketRouter);
 
 // START OF ENDPOINT DEFINITION
 app.get('/', (req, res) => {
@@ -49,6 +61,6 @@ app.get('/', (req, res) => {
 const port = process.env.PORT || 5000;
 
 // finally, launch our server on port assigned port.
-const server = app.listen(port, () => {
+const server = http.listen(port, () => {
     console.log('listening on port %s...', server.address().port);
 });
