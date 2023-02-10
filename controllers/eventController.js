@@ -11,6 +11,16 @@ const getEvent = async (req, res) => {
     res.status(200).json(data);
 };
 
+// getEventAll
+// GET request for all events
+const getEventAll= async (req, res) => {
+    // get all event documents
+
+    const data = await Event.find({});
+
+    res.status(200).json(data);
+};
+
 // setEvent
 // POST request
 const setEvent = async (req, res) => {
@@ -47,5 +57,5 @@ const deleteEvent = async (req, res) => {
 };
 
 module.exports = {
-    getEvent, setEvent, deleteEvent
+    getEvent, getEventAll, setEvent, deleteEvent
 };

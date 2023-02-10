@@ -7,13 +7,14 @@ const requireAuth = require('../middleware/requireAuth');
 const router = express.Router();
 
 //bring in controllers for CRUD operations
-const { getEvent, setEvent, deleteEvent } = require('../controllers/eventController');
+const { getEvent, getEventAll,setEvent, deleteEvent } = require('../controllers/eventController');
 
 // require auth for all routes i.e. valid user has to be logged in
 router.use(requireAuth);
 
 // for the events data
 router.get('/', getEvent);
+router.get('/all', getEventAll);
 router.post('/', setEvent);
 router.delete('/', deleteEvent);
 

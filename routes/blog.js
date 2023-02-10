@@ -7,13 +7,14 @@ const requireAuth = require('../middleware/requireAuth');
 const router = express.Router();
 
 //bring in controllers for CRUD operations
-const { getBlog, setBlog, deleteBlog } = require('../controllers/blogController');
+const { getBlog, getBlogAll, setBlog, deleteBlog } = require('../controllers/blogController');
 
 // require auth for all routes i.e. valid suer has to be logged in
 router.use(requireAuth);
 
 // for the blogs data
 router.get('/', getBlog);
+router.get('/all', getBlogAll);
 router.post('/', setBlog);
 router.delete('/', deleteBlog);
 

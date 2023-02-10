@@ -12,6 +12,15 @@ const getBlog = async (req, res) => {
     res.status(200).json(data);
 };
 
+// GET request for all blogs
+const getBlogAll = async (req, res) => {
+    // get all the blog documents
+
+    const data = await Blog.find({});
+
+    res.status(200).json(data);
+};
+
 // setBlog
 // POST request
 const setBlog = async (req, res) => {
@@ -47,5 +56,5 @@ const deleteBlog = async (req, res) => {
 };
 
 module.exports = {
-    getBlog, setBlog, deleteBlog
+    getBlog, getBlogAll, setBlog, deleteBlog
 };
