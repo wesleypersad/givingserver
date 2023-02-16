@@ -13,6 +13,9 @@ const user = require('./routes/user');
 const blog= require('./routes/blog');
 const event = require('./routes/event');
 const charity = require('./routes/charity');
+const payment = require('./routes/payment');
+const skill = require('./routes/skill');
+const item = require('./routes/item');
 const send = require('./routes/send');
 
 // create an instance of express to serve our end point
@@ -48,6 +51,9 @@ app.use('/user', user);
 app.use('/blog', blog);
 app.use('/event', event);
 app.use('/charity', charity);
+app.use('/payment', payment);
+app.use('/skill', skill);
+app.use('/item', item);
 app.use('/send', send);
 app.use('/chat', socketRouter);
 
