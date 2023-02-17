@@ -56,6 +56,26 @@ const deleteEvent = async (req, res) => {
     res.status(200).json(result);
 };
 
+const editEvent = async (req, res) => {
+    if (!req.body._id) {
+        res.status(400).json({message: 'Please add a JSON _id in body'});
+        //res.status(400).json(req.body);
+        return;
+    };
+
+    // get result of attempt to delete the record with that username
+    const result = await Event.updateOne({_id: req.body._id},
+                        {
+                            title: req.body.title,
+                            allDay: req.body.allDay,
+                            start: req.body.start,
+                            end: req.body.end,
+                            body: req.body.body
+                        });
+
+    res.status(200).json(result);
+};
+
 module.exports = {
-    getEvent, getEventAll, setEvent, deleteEvent
+    getEvent, getEventAll, setEvent, deleteEvent, editEvent
 };

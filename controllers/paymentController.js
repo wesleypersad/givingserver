@@ -55,6 +55,25 @@ const deletePayment = async (req, res) => {
     res.status(200).json(result);
 };
 
+// edit item
+// PUT request to edit existing record by _id
+const editPayment = async (req, res) => {
+    if (!req.body._id) {
+        res.status(400).json({message: 'Please add a JSON _id in body'});
+        //res.status(400).json(req.body);
+        return;
+    };
+
+    // get result of attempt to delete the record with that username
+    const result = await Payment.updateOne({_id: req.body._id},
+                        {
+                            amount: req.body.amount,
+                            charity: req.body.charity
+                        });
+
+    res.status(200).json(result);
+};
+
 module.exports = {
-    getPayment, getPaymentAll, setPayment, deletePayment
+    getPayment, getPaymentAll, setPayment, deletePayment, editPayment
 };

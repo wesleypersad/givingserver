@@ -7,7 +7,7 @@ const express = require('express');
 const router = express.Router();
 
 //bring in controllers for CRUD operations
-const { getUser, setUser, deleteUser, loginUser } = require('../controllers/userController');
+const { getUser, setUser, deleteUser, loginUser, editUser } = require('../controllers/userController');
 
 // require auth for all routes i.e. valid user has to be logged in
 //router.use(requireAuth);
@@ -18,5 +18,6 @@ router.post('/', setUser);
 router.post('/signup', setUser); // same as above
 router.post('/login', loginUser);
 router.delete('/', deleteUser);
+router.put('/', editUser);
 
 module.exports = router;

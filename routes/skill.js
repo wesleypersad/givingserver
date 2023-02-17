@@ -7,7 +7,7 @@ const requireAuth = require('../middleware/requireAuth');
 const router = express.Router();
 
 //bring in controllers for CRUD operations
-const { getSkill, getSkillAll, setSkill, deleteSkill } = require('../controllers/skillController');
+const { getSkill, getSkillAll, setSkill, deleteSkill, editSkill } = require('../controllers/skillController');
 
 // require auth for all routes i.e. valid user has to be logged in
 router.use(requireAuth);
@@ -17,5 +17,6 @@ router.get('/', getSkill);
 router.get('/all', getSkillAll);
 router.post('/', setSkill);
 router.delete('/', deleteSkill);
+router.put('/', editSkill);
 
 module.exports = router;

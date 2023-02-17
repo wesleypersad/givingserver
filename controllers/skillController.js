@@ -54,6 +54,24 @@ const deleteSkill = async (req, res) => {
     res.status(200).json(result);
 };
 
+// edit skill
+// PUT request to edit existing record by _id
+const editSkill = async (req, res) => {
+    if (!req.body._id) {
+        res.status(400).json({message: 'Please add a JSON _id in body'});
+        //res.status(400).json(req.body);
+        return;
+    };
+
+    // get result of attempt to delete the record with that username
+    const result = await Skill.updateOne({_id: req.body._id},
+                        {
+                            skills: req.body.skills
+                        });
+
+    res.status(200).json(result);
+};
+
 module.exports = {
-    getSkill, getSkillAll, setSkill, deleteSkill
+    getSkill, getSkillAll, setSkill, deleteSkill, editSkill
 };

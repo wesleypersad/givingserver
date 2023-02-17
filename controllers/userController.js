@@ -67,6 +67,25 @@ const deleteUser = async (req, res) => {
     res.status(200).json(result);
 };
 
+const editUser = async (req, res) => {
+    if (!req.body._id) {
+        res.status(400).json({message: 'Please add a JSON _id in body'});
+        //res.status(400).json(req.body);
+        return;
+    };
+
+    // get result of attempt to delete the record with that username
+    const result = await User.updateOne({_id: req.body._id},
+                        {
+                            username: req.body.username,
+                            password: req.body.password,
+                            email: req.body.email,
+                            role: req.body.role
+                        });
+
+    res.status(200).json(result);
+};
+
 module.exports = {
-    getUser, setUser, deleteUser, loginUser
+    getUser, setUser, deleteUser, loginUser, editUser
 };
