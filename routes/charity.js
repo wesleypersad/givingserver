@@ -18,7 +18,7 @@ router.get('/details/:charnum', async (req, res) => {
     try {
         console.log(req.params.charnum);
         const charnum = req.params.charnum;
-        const response = await fetch(`${charitiesAPIURI}/charitydetails/${charnum}/0`, {
+        const response = await fetch(`${charitiesAPIURI}/allcharitydetails/${charnum}/0`, {
             method: 'GET',
             // Request headers
             headers: {
