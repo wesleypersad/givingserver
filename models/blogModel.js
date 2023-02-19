@@ -9,7 +9,9 @@ const blogSchema = mongoose.Schema({
     author: {
         type: String,
         required: true
-    }
+    },
+    link: String,
+    image: String
 }, {
     timstamps: true
 });

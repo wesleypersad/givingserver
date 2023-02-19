@@ -65,7 +65,10 @@ const editItem = async (req, res) => {
 
     // get result of attempt to delete the record with that username
     const result = await Item.updateOne({_id: req.body._id},
-                        {description: req.body.description});
+                        {
+                            description: req.body.description,
+                            status: req.body.status
+                        });
 
     res.status(200).json(result);
 };

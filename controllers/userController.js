@@ -17,10 +17,10 @@ const getUser = async (req, res) => {
 // setUser and also used for /user/signup
 // POST request
 const setUser = async (req, res) => {
-    const {username, password, email} = req.body;
+    const {username, password, email, mobile} = req.body;
 
     try {
-        const user = await User.signup(username, password, email);
+        const user = await User.signup(username, password, email, mobile);
 
         // create a token
         const token = createToken(user._id);
@@ -80,6 +80,7 @@ const editUser = async (req, res) => {
                             username: req.body.username,
                             password: req.body.password,
                             email: req.body.email,
+                            mobile: req.body.mobile,
                             role: req.body.role
                         });
 

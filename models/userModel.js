@@ -17,6 +17,7 @@ const userSchema = mongoose.Schema({
         required: true,
         unique: true
     },
+    mobile: String,
     role: {
         type: String,
         required: true,
@@ -28,7 +29,7 @@ const userSchema = mongoose.Schema({
 
 // static signup method
 // encryption to be added later
-userSchema.statics.signup = async function(username, password, email) {
+userSchema.statics.signup = async function(username, password, email, mobile) {
 
     // validation
     if (!username || !password || !email) {
@@ -41,7 +42,7 @@ userSchema.statics.signup = async function(username, password, email) {
         throw Error('Password not strong enough');
     } */
 
-    const user = await this.create({username, password, email});
+    const user = await this.create({username, password, email, mobile});
 
     return user;
 };

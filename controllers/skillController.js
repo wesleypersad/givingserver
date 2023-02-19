@@ -66,7 +66,8 @@ const editSkill = async (req, res) => {
     // get result of attempt to delete the record with that username
     const result = await Skill.updateOne({_id: req.body._id},
                         {
-                            skills: req.body.skills
+                            skills: req.body.skills,
+                            status: req.body.status
                         });
 
     res.status(200).json(result);

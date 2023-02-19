@@ -68,7 +68,8 @@ const editPayment = async (req, res) => {
     const result = await Payment.updateOne({_id: req.body._id},
                         {
                             amount: req.body.amount,
-                            charity: req.body.charity
+                            charity: req.body.charity,
+                            status: req.body.status
                         });
 
     res.status(200).json(result);

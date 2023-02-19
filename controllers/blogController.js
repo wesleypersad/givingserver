@@ -24,14 +24,16 @@ const getBlogAll = async (req, res) => {
 // setBlog
 // POST request
 const setBlog = async (req, res) => {
-    const {title, body} = req.body;
+    const {title, body, link, image} = req.body;
     const author = req.user.username;
 
     try {
         const data = await Blog.create({
             title: title,
             body: body,
-            author: author
+            author: author,
+            link: link,
+            image: image
         });
 
         res.status(200).json(data);
@@ -66,7 +68,9 @@ const editBlog = async (req, res) => {
     const result = await Blog.updateOne({_id: req.body._id},
                         {
                             title: req.body.title,
-                            body: req.body.body
+                            body: req.body.body,
+                            link: req.body.link,
+                            image: req.body.image
                         });
 
     res.status(200).json(result);
