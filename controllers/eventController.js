@@ -24,12 +24,13 @@ const getEventAll= async (req, res) => {
 // setEvent
 // POST request
 const setEvent = async (req, res) => {
-    const {title, allDay, start, end} = req.body;
+    const {title, body, allDay, start, end} = req.body;
     const author = req.user.username;
 
     try {
         const data = await Event.create({
             title: title,
+            body: body,
             allDay: allDay,
             start: start,
             end: end,
@@ -67,6 +68,7 @@ const editEvent = async (req, res) => {
     const result = await Event.updateOne({_id: req.body._id},
                         {
                             title: req.body.title,
+                            body: req.body.body,
                             allDay: req.body.allDay,
                             start: req.body.start,
                             end: req.body.end,

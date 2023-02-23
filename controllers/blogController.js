@@ -33,7 +33,8 @@ const setBlog = async (req, res) => {
             body: body,
             author: author,
             link: link,
-            image: image
+            image: image,
+            created: new Date().toJSON()
         });
 
         res.status(200).json(data);

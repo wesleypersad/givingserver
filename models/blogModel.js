@@ -11,7 +11,11 @@ const blogSchema = mongoose.Schema({
         required: true
     },
     link: String,
-    image: String
+    image: String,
+    created: {
+        type: Date,
+        required: true
+    },
 }, {
     timstamps: true
 });

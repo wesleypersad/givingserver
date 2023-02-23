@@ -1,7 +1,7 @@
 const express=require('express');
 
-function SocketRouter(socketIO) {
-    const router = express.Router(socketIO);
+function SocketRouter(IO) {
+    const router = express.Router(IO);
 
     // generic chat route
     router.get('/', (req, res) => {
@@ -11,35 +11,55 @@ function SocketRouter(socketIO) {
     // define array for different users
     let users = [];
 
+    //define function to get socket Id from user
+    const getCurentUser = (id) => {
+        return users.find(user => user.socketID === id);
+    };
+
+    // define function to get all users in a room
+    const getUsersRoom = (room) => {
+        return users.filter(user => user.room === room);
+    };
+
     // socket connection
-    socketIO.on('connection', (socket) => {
+    IO.on('connection', (socket) => {
         console.log(`${socket.id} user just connected!`);
 
-        socket.on('typing', (data) => socket.broadcast.emit('typingResponse', data));
-
-        //Listens and logs the message to the console
-        socket.on('message', (data) => {
-            //console.log(data);
-            socketIO.emit('messageResponse', data);
-        });
-
         //Listens when a new user joins the server
-        socket.on('newUser', (data) => {
+        socket.on('joinRoom', (data) => {
             //Adds the new user to the list of users
             users.push(data);
-            // console.log(users);
-            //Sends the list of users to the client
-            socketIO.emit('newUserResponse', users);
-        });
 
-        socket.on('disconnect', () => {
-            console.log(`${socket.id} user just disconnected!`);
-            //Updates the list of users when a user disconnects from the server
-            users = users.filter((user) => user.socketID !== socket.id);
-            // console.log(users);
-            //Sends the list of users to the client
-            socketIO.emit('newUserResponse', users);
-            socket.disconnect();
+            //set the current user from it's socket.id
+            const user = getCurentUser(socket.id);
+
+            console.log(`${user.userName} joined room ${user.room}`);
+
+            // join the room
+            socket.join(user.room);
+
+            //Sends the list of users in th same room to each client
+            IO.to(user.room).emit('newUserResponse', getUsersRoom(user.room));
+
+            // when I type a message
+            socket.on('typing', (data) => IO.to(user.room).emit('typingResponse', data));
+
+            //Listens and logs the message to the console
+            socket.on('message', (data) => {
+                //console.log(data);
+                //console.log('socketID = ', getCurentUser(socket.id));
+                IO.to(user.room).emit('messageResponse', data);
+            });
+
+            socket.on('disconnect', () => {
+                console.log(`${socket.id} user just disconnected!`);
+                //Updates the list of users when a user disconnects from the server
+                users = users.filter((user) => user.socketID !== socket.id);
+                // console.log(users);
+                //Sends the list of users to the client
+                IO.to(user.room).emit('newUserResponse', getUsersRoom(user.room));
+                socket.disconnect();
+            });
         });
     });
 

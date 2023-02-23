@@ -5,7 +5,8 @@ const eventSchema = mongoose.Schema({
         type: String,
         required: true,
         unique: true
-    }, 
+    },     body: String,
+    body: String,
     allDay: Boolean,
     start: {
         type: Date,
