@@ -14,6 +14,17 @@ const getUser = async (req, res) => {
     res.status(200).json(data);
 };
 
+// getUserUsername
+// GET request for User document with a specific username
+const getUserUsername = async (req, res) => {
+    // get the username parameter
+    const username = req.params.username;
+
+    const data = await User.find({'username': `${username}`});
+
+    res.status(200).json(data);
+};
+
 // setUser and also used for /user/signup
 // POST request
 const setUser = async (req, res) => {
@@ -88,5 +99,5 @@ const editUser = async (req, res) => {
 };
 
 module.exports = {
-    getUser, setUser, deleteUser, loginUser, editUser
+    getUser, getUserUsername, setUser, deleteUser, loginUser, editUser
 };
