@@ -28,10 +28,10 @@ const getUserUsername = async (req, res) => {
 // setUser and also used for /user/signup
 // POST request
 const setUser = async (req, res) => {
-    const {username, password, email, mobile} = req.body;
+    const {username, password, email, mobile, role} = req.body;
 
     try {
-        const user = await User.signup(username, password, email, mobile);
+        const user = await User.signup(username, password, email, mobile, role);
 
         // create a token
         const token = createToken(user._id);
