@@ -6,19 +6,26 @@ const getEvent = async (req, res) => {
     // get the username to filter result to users documents
     const author = req.user.username;
 
-    const data = await Event.find({"author": author});
+    try {
+        const data = await Event.find({"author": author});
 
-    res.status(200).json(data);
+        res.status(200).json(data);
+    } catch (err) {
+        res.json({message: err.message});	
+    };
 };
 
 // getEventAll
 // GET request for all events
 const getEventAll= async (req, res) => {
     // get all event documents
+    try {
+        const data = await Event.find({});
 
-    const data = await Event.find({});
-
-    res.status(200).json(data);
+        res.status(200).json(data);
+    } catch (err) {
+        res.json({message: err.message});	
+    };
 };
 
 // setEvent
@@ -51,10 +58,14 @@ const deleteEvent = async (req, res) => {
         return;
     }
 
-    // get result of attempt to delete the record with that username
-    const result = await Event.deleteOne({_id: req.body._id});
+    try {
+        // get result of attempt to delete the record with that username
+        const result = await Event.deleteOne({_id: req.body._id});
 
-    res.status(200).json(result);
+        res.status(200).json(result);
+    } catch (err) {
+        res.json({message: err.message});	
+    };
 };
 
 const editEvent = async (req, res) => {
@@ -64,8 +75,9 @@ const editEvent = async (req, res) => {
         return;
     };
 
-    // get result of attempt to delete the record with that username
-    const result = await Event.updateOne({_id: req.body._id},
+    try {
+        // get result of attempt to delete the record with that username
+        const result = await Event.updateOne({_id: req.body._id},
                         {
                             title: req.body.title,
                             body: req.body.body,
@@ -75,7 +87,10 @@ const editEvent = async (req, res) => {
                             body: req.body.body
                         });
 
-    res.status(200).json(result);
+        res.status(200).json(result);
+    } catch (err) {
+        res.json({message: err.message});	
+    };
 };
 
 module.exports = {

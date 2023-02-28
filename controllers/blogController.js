@@ -6,19 +6,27 @@ const getBlog = async (req, res) => {
     // get the username to filter result to users documents
     const author = req.user.username;
 
-    //const data = await Blog.find({});
-    const data = await Blog.find({"author": author});
+    try {
+        //const data = await Blog.find({});
+        const data = await Blog.find({"author": author});
 
-    res.status(200).json(data);
+        res.status(200).json(data);
+    } catch (err) {
+        res.json({message: err.message});	
+    };
 };
 
 // GET request for all blogs
 const getBlogAll = async (req, res) => {
     // get all the blog documents
 
-    const data = await Blog.find({});
+    try {
+        const data = await Blog.find({});
 
-    res.status(200).json(data);
+        res.status(200).json(data);
+    } catch (err) {
+        res.json({message: err.message});	
+    };
 };
 
 // setBlog
@@ -52,10 +60,14 @@ const deleteBlog = async (req, res) => {
         return;
     };
 
-    // get result of attempt to delete the record with that username
-    const result = await Blog.deleteOne({_id: req.body._id});
+    try {
+        // get result of attempt to delete the record with that username
+        const result = await Blog.deleteOne({_id: req.body._id});
 
-    res.status(200).json(result);
+        res.status(200).json(result);
+    } catch (err) {
+        res.json({message: err.message});	
+    };
 };
 
 const editBlog = async (req, res) => {
@@ -65,8 +77,9 @@ const editBlog = async (req, res) => {
         return;
     };
 
-    // get result of attempt to delete the record with that username
-    const result = await Blog.updateOne({_id: req.body._id},
+    try {
+        // get result of attempt to delete the record with that username
+        const result = await Blog.updateOne({_id: req.body._id},
                         {
                             title: req.body.title,
                             body: req.body.body,
@@ -74,7 +87,10 @@ const editBlog = async (req, res) => {
                             image: req.body.image
                         });
 
-    res.status(200).json(result);
+        res.status(200).json(result);
+    } catch (err) {
+        res.json({message: err.message});	
+    };
 };
 
 module.exports = {

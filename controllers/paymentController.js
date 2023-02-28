@@ -6,19 +6,26 @@ const getPayment = async (req, res) => {
     // get the username to filter result to users documents
     const donerid = req.user.username;
 
-    //const data = await Payment.find({});
-    const data = await Payment.find({"donerid": donerid});
+    try {
+        //const data = await Payment.find({});
+        const data = await Payment.find({"donerid": donerid});
 
-    res.status(200).json(data);
+        res.status(200).json(data);
+    } catch (err) {
+        res.json({message: err.message});	
+    };
 };
 
 // GET request for all Payments
 const getPaymentAll = async (req, res) => {
     // get all the Payment documents
+    try {
+        const data = await Payment.find({});
 
-    const data = await Payment.find({});
-
-    res.status(200).json(data);
+        res.status(200).json(data);
+    } catch (err) {
+        res.json({message: err.message});	
+    };
 };
 
 // setPayment
@@ -49,10 +56,14 @@ const deletePayment = async (req, res) => {
         return;
     };
 
-    // get result of attempt to delete the record with that username
-    const result = await Payment.deleteOne({_id: req.body._id});
+    try {
+        // get result of attempt to delete the record with that username
+        const result = await Payment.deleteOne({_id: req.body._id});
 
-    res.status(200).json(result);
+        res.status(200).json(result);
+    } catch (err) {
+        res.json({message: err.message});	
+    };
 };
 
 // edit item
@@ -64,15 +75,19 @@ const editPayment = async (req, res) => {
         return;
     };
 
-    // get result of attempt to delete the record with that username
-    const result = await Payment.updateOne({_id: req.body._id},
-                        {
-                            amount: req.body.amount,
-                            charity: req.body.charity,
-                            status: req.body.status
-                        });
+    try {
+        // get result of attempt to delete the record with that username
+        const result = await Payment.updateOne({_id: req.body._id},
+                            {
+                                amount: req.body.amount,
+                                charity: req.body.charity,
+                                status: req.body.status
+                            });
 
-    res.status(200).json(result);
+        res.status(200).json(result);
+    } catch (err) {
+        res.json({message: err.message});	
+    };
 };
 
 module.exports = {

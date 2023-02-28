@@ -8,10 +8,14 @@ const createToken = (_id) => {
 // getUser
 // GET request
 const getUser = async (req, res) => {
-    const data = await User.find({});
-    //const data = await Data.find({"username": /substring/});
+    try {
+        const data = await User.find({});
+        //const data = await Data.find({"username": /substring/});
 
-    res.status(200).json(data);
+        res.status(200).json(data);
+    } catch (err) {
+        res.json({message: err.message});
+    };
 };
 
 // getUserUsername
@@ -20,9 +24,13 @@ const getUserUsername = async (req, res) => {
     // get the username parameter
     const username = req.params.username;
 
-    const data = await User.find({'username': `${username}`});
+    try {
+        const data = await User.find({'username': `${username}`});
 
-    res.status(200).json(data);
+        res.status(200).json(data);
+    } catch (err) {
+        res.json({message: err.message});
+    };
 };
 
 // setUser and also used for /user/signup
@@ -70,12 +78,16 @@ const deleteUser = async (req, res) => {
     if (!req.body._id) {
         res.status(400).json({message: 'Please add a JSON _id in body'});
         return;
-    }
+    };
 
-    // get result of attempt to delete the record with that username
-    const result = await User.deleteOne({_id: req.body._id});
+    try {
+        // get result of attempt to delete the record with that username
+        const result = await User.deleteOne({_id: req.body._id});
 
-    res.status(200).json(result);
+        res.status(200).json(result);
+    } catch (err) {
+        res.json({message: err.message});
+    };
 };
 
 const editUser = async (req, res) => {
@@ -85,8 +97,9 @@ const editUser = async (req, res) => {
         return;
     };
 
-    // get result of attempt to delete the record with that username
-    const result = await User.updateOne({_id: req.body._id},
+    try {
+        // get result of attempt to delete the record with that username
+        const result = await User.updateOne({_id: req.body._id},
                         {
                             username: req.body.username,
                             password: req.body.password,
@@ -95,7 +108,10 @@ const editUser = async (req, res) => {
                             role: req.body.role
                         });
 
-    res.status(200).json(result);
+        res.status(200).json(result);
+    } catch (err) {
+        res.json({message: err.message});
+    };
 };
 
 module.exports = {

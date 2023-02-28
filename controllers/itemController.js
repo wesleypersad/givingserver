@@ -6,19 +6,26 @@ const getItem = async (req, res) => {
     // get the username to filter result to users documents
     const donerid = req.user.username;
 
-    //const data = await Item.find({});
-    const data = await Item.find({"donerid": donerid});
+    try {
+        //const data = await Item.find({});
+        const data = await Item.find({"donerid": donerid});
 
-    res.status(200).json(data);
+        res.status(200).json(data);
+    } catch (err) {
+        res.json({message: err.message});	
+    };
 };
 
 // GET request for all Items
 const getItemAll = async (req, res) => {
     // get all the Item documents
+    try {
+        const data = await Item.find({});
 
-    const data = await Item.find({});
-
-    res.status(200).json(data);
+        res.status(200).json(data);
+    } catch (err) {
+        res.json({message: err.message});	
+    };
 };
 
 // setItem
@@ -48,10 +55,14 @@ const deleteItem = async (req, res) => {
         return;
     };
 
-    // get result of attempt to delete the record with that username
-    const result = await Item.deleteOne({_id: req.body._id});
+    try {
+        // get result of attempt to delete the record with that username
+        const result = await Item.deleteOne({_id: req.body._id});
 
-    res.status(200).json(result);
+        res.status(200).json(result);
+    } catch (err) {
+        res.json({message: err.message});	
+    };
 };
 
 // edit item
@@ -63,14 +74,18 @@ const editItem = async (req, res) => {
         return;
     };
 
+    try {
     // get result of attempt to delete the record with that username
     const result = await Item.updateOne({_id: req.body._id},
-                        {
-                            description: req.body.description,
-                            status: req.body.status
-                        });
+                    {
+                        description: req.body.description,
+                        status: req.body.status
+                    });
 
     res.status(200).json(result);
+    } catch (err) {
+        res.json({message: err.message});	
+    };
 };
 
 module.exports = {
