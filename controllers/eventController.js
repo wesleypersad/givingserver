@@ -15,6 +15,19 @@ const getEvent = async (req, res) => {
     };
 };
 
+// getEventCount
+// GET request for number of documents
+const getEventCount = async (req, res) => {
+    try {
+        const data = await Event.countDocuments();
+
+        res.status(200).json(data);
+    } catch (err) {
+        res.json({message: err.message});
+    };
+};
+
+
 // getEventAll
 // GET request for all events
 const getEventAll= async (req, res) => {
@@ -94,5 +107,5 @@ const editEvent = async (req, res) => {
 };
 
 module.exports = {
-    getEvent, getEventAll, setEvent, deleteEvent, editEvent
+    getEvent, getEventCount, getEventAll, setEvent, deleteEvent, editEvent
 };

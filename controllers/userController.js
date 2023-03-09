@@ -18,6 +18,18 @@ const getUser = async (req, res) => {
     };
 };
 
+// getUserCount
+// GET request for number of documents
+const getUserCount = async (req, res) => {
+    try {
+        const data = await User.countDocuments();
+
+        res.status(200).json(data);
+    } catch (err) {
+        res.json({message: err.message});
+    };
+};
+
 // getUserUsername
 // GET request for User document with a specific username
 const getUserUsername = async (req, res) => {
@@ -115,5 +127,5 @@ const editUser = async (req, res) => {
 };
 
 module.exports = {
-    getUser, getUserUsername, setUser, deleteUser, loginUser, editUser
+    getUser, getUserCount, getUserUsername, setUser, deleteUser, loginUser, editUser
 };

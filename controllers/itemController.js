@@ -16,6 +16,19 @@ const getItem = async (req, res) => {
     };
 };
 
+// getItemCount
+// GET request for number of documents
+const getItemCount = async (req, res) => {
+    try {
+        const data = await Item.countDocuments();
+
+        res.status(200).json(data);
+    } catch (err) {
+        res.json({message: err.message});
+    };
+};
+
+
 // GET request for all Items
 const getItemAll = async (req, res) => {
     // get all the Item documents
@@ -89,5 +102,5 @@ const editItem = async (req, res) => {
 };
 
 module.exports = {
-    getItem, getItemAll, setItem, deleteItem, editItem
+    getItem, getItemCount, getItemAll, setItem, deleteItem, editItem
 };

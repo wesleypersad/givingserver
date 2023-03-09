@@ -16,6 +16,19 @@ const getPayment = async (req, res) => {
     };
 };
 
+// getPaymentCount
+// GET request for number of documents
+const getPaymentCount = async (req, res) => {
+    try {
+        const data = await Payment.countDocuments();
+
+        res.status(200).json(data);
+    } catch (err) {
+        res.json({message: err.message});
+    };
+};
+
+
 // GET request for all Payments
 const getPaymentAll = async (req, res) => {
     // get all the Payment documents
@@ -91,5 +104,5 @@ const editPayment = async (req, res) => {
 };
 
 module.exports = {
-    getPayment, getPaymentAll, setPayment, deletePayment, editPayment
+    getPayment, getPaymentCount, getPaymentAll, setPayment, deletePayment, editPayment
 };

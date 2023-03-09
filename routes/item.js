@@ -7,13 +7,14 @@ const requireAuth = require('../middleware/requireAuth');
 const router = express.Router();
 
 //bring in controllers for CRUD operations
-const { getItem, getItemAll, setItem, deleteItem, editItem } = require('../controllers/itemController');
+const { getItem, getItemCount, getItemAll, setItem, deleteItem, editItem } = require('../controllers/itemController');
 
 // require auth for all routes i.e. valid user has to be logged in
 router.use(requireAuth);
 
 // for the Items data
 router.get('/', getItem);
+router.get('/count', getItemCount);
 router.get('/all', getItemAll);
 router.post('/', setItem);
 router.delete('/', deleteItem);

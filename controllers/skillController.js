@@ -16,6 +16,18 @@ const getSkill = async (req, res) => {
     };
 };
 
+// getSkillCount
+// GET request for number of documents
+const getSkillCount = async (req, res) => {
+    try {
+        const data = await Skill.countDocuments();
+
+        res.status(200).json(data);
+    } catch (err) {
+        res.json({message: err.message});
+    };
+};
+
 // GET request for all Skills
 const getSkillAll = async (req, res) => {
     // get all the Skill documents
@@ -89,5 +101,5 @@ const editSkill = async (req, res) => {
 };
 
 module.exports = {
-    getSkill, getSkillAll, setSkill, deleteSkill, editSkill
+    getSkill, getSkillCount, getSkillAll, setSkill, deleteSkill, editSkill
 };

@@ -7,13 +7,14 @@ const requireAuth = require('../middleware/requireAuth');
 const router = express.Router();
 
 //bring in controllers for CRUD operations
-const { getPayment, getPaymentAll, setPayment, deletePayment, editPayment } = require('../controllers/paymentController');
+const { getPayment, getPaymentCount, getPaymentAll, setPayment, deletePayment, editPayment } = require('../controllers/paymentController');
 
 // require auth for all routes i.e. valid user has to be logged in
 router.use(requireAuth);
 
 // for the Payments data
 router.get('/', getPayment);
+router.get('/count', getPaymentCount);
 router.get('/all', getPaymentAll);
 router.post('/', setPayment);
 router.delete('/', deletePayment);

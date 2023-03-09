@@ -18,6 +18,19 @@ const getBlog = async (req, res) => {
     };
 };
 
+// getBlogCount
+// GET request for number of documents
+const getBlogCount = async (req, res) => {
+    try {
+        const data = await Blog.countDocuments();
+
+        res.status(200).json(data);
+    } catch (err) {
+        res.json({message: err.message});
+    };
+};
+
+
 // GET request for all blogs
 const getBlogAll = async (req, res) => {
     // get all the blog documents
@@ -96,5 +109,5 @@ const editBlog = async (req, res) => {
 };
 
 module.exports = {
-    getBlog, getBlogAll, setBlog, deleteBlog, editBlog
+    getBlog, getBlogCount, getBlogAll, setBlog, deleteBlog, editBlog
 };
