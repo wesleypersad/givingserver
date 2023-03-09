@@ -1,7 +1,7 @@
 const express = require('express');
 
 //bring in the middleware for user authenication
-const requireAuth = require('../middleware/requireAuth');
+//const requireAuth = require('../middleware/requireAuth');
 
 // instantiate router
 const router = express.Router();
@@ -10,11 +10,11 @@ const router = express.Router();
 const { getBlog, getBlogAll, setBlog, deleteBlog, editBlog } = require('../controllers/blogController');
 
 // require auth for all routes i.e. valid suer has to be logged in
-router.use(requireAuth);
+//router.use(requireAuth);
 
 // for the blogs data
-router.get('/', getBlog);
 router.get('/all', getBlogAll);
+router.get('/:username', getBlog);
 router.post('/', setBlog);
 router.delete('/', deleteBlog);
 router.put('/', editBlog);

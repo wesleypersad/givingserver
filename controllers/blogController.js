@@ -4,7 +4,9 @@ const Blog = require('../models/blogModel');
 // GET request
 const getBlog = async (req, res) => {
     // get the username to filter result to users documents
-    const author = req.user.username;
+    // get username from parameter as middleware not used
+    //const author = req.user.username;
+    const author = req.params.username;
 
     try {
         //const data = await Blog.find({});
