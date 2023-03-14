@@ -4,9 +4,7 @@ const Blog = require('../models/blogModel');
 // GET request
 const getBlog = async (req, res) => {
     // get the username to filter result to users documents
-    // get username from parameter as middleware not used
-    //const author = req.user.username;
-    const author = req.params.username;
+    const author = req.user.username;
 
     try {
         //const data = await Blog.find({});
@@ -47,7 +45,7 @@ const getBlogAll = async (req, res) => {
 // setBlog
 // POST request
 const setBlog = async (req, res) => {
-    const {title, body, link, image} = req.body;
+    const {title, body} = req.body;
     const author = req.user.username;
 
     try {
@@ -55,8 +53,6 @@ const setBlog = async (req, res) => {
             title: title,
             body: body,
             author: author,
-            link: link,
-            image: image,
             created: new Date().toJSON()
         });
 
@@ -85,6 +81,8 @@ const deleteBlog = async (req, res) => {
     };
 };
 
+// editBLog
+// PUT request - update by _id
 const editBlog = async (req, res) => {
     if (!req.body._id) {
         res.status(400).json({message: 'Please add a JSON _id in body'});
@@ -97,9 +95,7 @@ const editBlog = async (req, res) => {
         const result = await Blog.updateOne({_id: req.body._id},
                         {
                             title: req.body.title,
-                            body: req.body.body,
-                            link: req.body.link,
-                            image: req.body.image
+                            body: req.body.body
                         });
 
         res.status(200).json(result);

@@ -17,6 +17,7 @@ const payment = require('./routes/payment');
 const skill = require('./routes/skill');
 const item = require('./routes/item');
 const send = require('./routes/send');
+const noauth = require('./routes/noauth');
 
 // create an instance of express to serve our end point
 const app = express();
@@ -56,6 +57,7 @@ app.use('/skill', skill);
 app.use('/item', item);
 app.use('/send', send);
 app.use('/chat', socketRouter);
+app.use('/noauth', noauth);
 
 // START OF ENDPOINT DEFINITION
 app.get('/', (req, res) => {

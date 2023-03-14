@@ -28,7 +28,6 @@ const getItemCount = async (req, res) => {
     };
 };
 
-
 // GET request for all Items
 const getItemAll = async (req, res) => {
     // get all the Item documents

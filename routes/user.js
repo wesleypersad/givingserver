@@ -7,7 +7,7 @@ const express = require('express');
 const router = express.Router();
 
 //bring in controllers for CRUD operations
-const { getUser, getUserCount, getUserUsername, setUser, deleteUser, loginUser, editUser } = require('../controllers/userController');
+const { getUser, getUserCount, getUserAll, getUserUsername, setUser, deleteUser, loginUser, editUser } = require('../controllers/userController');
 
 // require auth for all routes i.e. valid user has to be logged in
 //router.use(requireAuth);
@@ -15,6 +15,7 @@ const { getUser, getUserCount, getUserUsername, setUser, deleteUser, loginUser, 
 // for the users
 router.get('/', getUser);
 router.get('/count', getUserCount);
+router.get('/all', getUserAll);
 router.get('/:username', getUserUsername);
 router.post('/', setUser);
 router.post('/signup', setUser); // same as above
