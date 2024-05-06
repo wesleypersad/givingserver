@@ -5,7 +5,7 @@
 
 //use express and body parser to recieve data from front end
 const express = require('express');
-const bodyParser = require('body-parser');
+//const bodyParser = require('body-parser');
 const cors = require('cors');
 
 // define seperate routes in seprerate files
@@ -44,8 +44,10 @@ connectDB();
 // configure our express instance with some body-parser settings
 // including handling JSON data
 app.use(cors());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+//app.use(bodyParser.json());
+//app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // define routes in seperate file
 app.use('/user', user);
