@@ -77,17 +77,17 @@ app.use((err, req, res, next) => {
       next(err);
     }
 });
-  
-// 404 error handling middleware
-app.use(function(req, res) {
-    res.status(404).json({ error: 'Not Found' });
-});
 
 // START OF ENDPOINT DEFINITION
 app.get('/', (req, res) => {
     res.send('Welcome to the GIVING server !!!');
 });
 // END OF ENDPOINT DEFINITION
+  
+// 404 error handling middleware
+app.use(function(req, res) {
+    res.status(404).json({ error: 'Not Found' });
+});
 
 // use port 5000 or port assigned by local environment for the server
 const port = process.env.PORT || 5000;
