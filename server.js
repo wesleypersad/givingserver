@@ -61,6 +61,28 @@ app.use('/send', send);
 app.use('/chat', socketRouter);
 app.use('/noauth', noauth);
 
+// Error handling middleware
+app.use((err, req, res, next) => {
+    if (err.status === 400) {
+      res.status(400).json({ error: 'Bad Request' });
+    } else if (err.status === 401) {
+      res.status(401).json({ error: 'Unauthorized' });
+    } else if (err.status === 403) {
+      res.status(403).json({ error: 'Forbidden' });
+    } else if (err.status === 405) {
+      res.status(405).json({ error: 'Method Not Allowed' });
+    } else if (err.status === 408) {
+      res.status(408).json({ error: 'Request Timeout' });
+    } else {
+      next(err);
+    }
+});
+  
+// 404 error handling middleware
+app.use(function(req, res) {
+    res.status(404).json({ error: 'Not Found' });
+});
+
 // START OF ENDPOINT DEFINITION
 app.get('/', (req, res) => {
     res.send('Welcome to the GIVING server !!!');
