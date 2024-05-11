@@ -43,7 +43,10 @@ connectDB();
 // ensure app can service requests from all sources
 // configure our express instance with some body-parser settings
 // including handling JSON data
-app.use(cors());
+//app.use(cors());
+app.use(cors({
+  origin: "givingproject-production.up.railway.app" // replace with your origin
+}));
 //app.use(bodyParser.json());
 //app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
