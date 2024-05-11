@@ -45,7 +45,7 @@ connectDB();
 // including handling JSON data
 //app.use(cors());
 app.use(cors({
-  origin: "givingproject-production.up.railway.app" // replace with your origin
+  origin: "*" // replace with your origin
 }));
 //app.use(bodyParser.json());
 //app.use(bodyParser.urlencoded({ extended: true }));
